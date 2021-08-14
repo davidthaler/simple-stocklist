@@ -24,4 +24,4 @@ For apparrel items, it has name, quantity for each possible size, and notes.
 
 
 # Photos
-Later, we will add a photo to line items using a file input tag with `accept=image/*` and
+Later, we will add a photo to line items using a file input tag with `accept="image/*""` and `capture="environment"`.
