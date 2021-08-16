@@ -33,7 +33,6 @@ document.getElementById("addUnsized").addEventListener("click", e => {
     output.appendChild(line);
   }
   form.reset();
-  debugger;
 });
 
 function getLine(line) {
