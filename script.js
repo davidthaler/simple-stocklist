@@ -20,24 +20,20 @@ let data = [
 ];
 
 const output = document.getElementById("output");
-// TODO: remove
-data.forEach(line => output.appendChild(getLine(line)));
 
-document.getElementById("unsizedDone").addEventListener("click", e => {
+document.getElementById("addUnsized").addEventListener("click", e => {
   const form = document.getElementById("unsizedDataEntry");
   const description = form.querySelector("input[type=text]").value;
   const count = form.querySelector("input[type=number]").value;
   const notes = form.querySelector("textarea").value;
-  //TODO: some validation, particularly on description
   const lineData = { type: "unsized", description, count, notes };
   const line = getLine(lineData);
-  console.log(line);
   if (line) {
     data.push(lineData);
-    output.appendChild(getLine(line));
+    output.appendChild(line);
   }
   form.reset();
-  //close modal...???
+  debugger;
 });
 
 function getLine(line) {
