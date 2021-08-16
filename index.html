@@ -44,31 +44,47 @@
           </div>
           <div class="modal-body">
             <form id="unsizedDataEntry">
-              <label for="descriptionInput" class="col-form-label"
-                >Description:
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                name="description"
-                id="descriptionInput"
-                autocomplete="off"
-              />
-              <label for="countInput" class="col-form-label">Count: </label>
-              <input
-                type="number"
-                min="1"
-                class="form-control"
-                name="count"
-                id="countInput"
-              />
-              <label for="notesInput" class="col-form-label">Notes: </label>
-              <textarea
-                class="form-control"
-                name="notes"
-                id="notesInput"
-                rows="2"
-              ></textarea>
+              <div class="row">
+                <label for="descriptionInput" class="col-4 col-form-label"
+                  >Description:
+                </label>
+                <div class="col-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="description"
+                    id="descriptionInput"
+                    autocomplete="off"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <label for="countInput" class="col-form-label col-4"
+                  >Count:
+                </label>
+                <div class="col-8">
+                  <input
+                    type="number"
+                    min="1"
+                    class="form-control"
+                    name="count"
+                    id="countInput"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <label for="notesInput" class="col-form-label col-4">Notes: </label>
+                <div class="col-8">
+                  <textarea
+                    class="form-control"
+                    name="notes"
+                    id="notesInput"
+                    rows="2"
+                  ></textarea>
+                </div>
+              </div>
             </form>
           </div>
           <div class="modal-footer">
