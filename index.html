@@ -17,10 +17,56 @@
     <div class="btn-toolbar fixed-top bg-light p-2 w-100" role="toolbar">
       <div class="button-group" role="group">
         <button type="button" class="btn btn-success">New Sized</button>
-        <button type="button" class="btn btn-success">New Unsized</button>
+        <button
+          type="button"
+          class="btn btn-success"
+          data-bs-toggle="modal"
+          data-bs-target="#unsizedModal"
+        >
+          New Unsized
+        </button>
       </div>
-        <button type="button" class="ms-auto btn btn-danger">Clear</button>
+      <button type="button" class="ms-auto btn btn-danger">Clear</button>
     </div>
+
+    <div class="modal fade" id="unsizedModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              Counts
+            </h3>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label for="descriptionInput" class="col-form-label"
+                >Description:
+              </label>
+              <input type="text" class="form-control" id="descriptionInput" />
+              <label for="countInput" class="col-form-label">Count: </label>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <main>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Item 1</li>
