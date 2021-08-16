@@ -26,7 +26,11 @@ function getLine(line) {
     }
   }else if(line.type && line.type==='sized'){
     if(line.counts){
-      html += 'counts...';
+      html += '<p>';
+      for(let [k, v] of Object.entries(line.counts)){
+        html += `${k}: ${v}    `;
+      }
+      html += '</p>';
     }
   }
   if (line.notes) {
