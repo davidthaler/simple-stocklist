@@ -6,7 +6,11 @@ let data = [
     count: 20,
     notes: "4 to display table"
   },
-  { type: "sized", description: "GY seal crew", counts: { XS: 0, S: 3, M: 2, L: 1, XL: 4, XXL: 1} },
+  {
+    type: "sized",
+    description: "GY seal crew",
+    counts: { XS: 0, S: 3, M: 2, L: 1, XL: 4, XXL: 1 }
+  },
   {
     type: "sized",
     description: "47 Wt retro dog tee",
@@ -15,16 +19,25 @@ let data = [
   }
 ];
 
-const output = document.getElementById('output');
+const output = document.getElementById("output");
+// TODO: remove
 data.forEach(line => output.appendChild(getLine(line)));
-data.forEach(line => output.appendChild(getLine(line)));
-document.getElementById('unsizedDone').addEventListener('click', (e) => {
-  //get values
-  //build line
-  //add line to data
-  //getline and append to output
-  document.getElementById('unsizedDataEntry').reset();
-  //close modal
+
+document.getElementById("unsizedDone").addEventListener("click", e => {
+  const form = document.getElementById("unsizedDataEntry");
+  const description = form.querySelector("input[type=text]").value;
+  const count = form.querySelector("input[type=number]").value;
+  const notes = form.querySelector("textarea").value;
+  //TODO: some validation, particularly on description
+  const lineData = { type: "unsized", description, count, notes };
+  const line = getLine(lineData);
+  console.log(line);
+  if (line) {
+    data.push(lineData);
+    output.appendChild(getLine(line));
+  }
+  form.reset();
+  //close modal...???
 });
 
 function getLine(line) {
@@ -36,15 +49,15 @@ function getLine(line) {
     if (line.count) {
       html += `<p>${line.count}</p>`;
     }
-  }else if(line.type && line.type==='sized'){
-    if(line.counts){
-      html += '<p>';
-      for(let [k, v] of Object.entries(line.counts)){
-        if(Number(v) > 0){
+  } else if (line.type && line.type === "sized") {
+    if (line.counts) {
+      html += "<p>";
+      for (let [k, v] of Object.entries(line.counts)) {
+        if (Number(v) > 0) {
           html += `<span class="me-3">${k}: ${v}</span>`;
         }
       }
-      html += '</p>';
+      html += "</p>";
     }
   }
   if (line.notes) {
@@ -53,5 +66,3 @@ function getLine(line) {
   l.innerHTML = html;
   return l;
 }
-
-
