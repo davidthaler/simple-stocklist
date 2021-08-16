@@ -43,12 +43,15 @@
             ></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="dataEntry">
               <label for="descriptionInput" class="col-form-label"
                 >Description:
               </label>
-              <input type="text" class="form-control" id="descriptionInput" />
+              <input type="text" class="form-control" name="description" id="descriptionInput" />
               <label for="countInput" class="col-form-label">Count: </label>
+              <input type="number" min="1" class="form-control" name="count" id="countInput">
+              <label for="notesInput" class="col-form-label">Notes: </label>
+              <textarea class="form-control" name="notes" id="notesInput" rows="3"></textarea>
             </form>
           </div>
           <div class="modal-footer">
@@ -59,7 +62,7 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary">
               Done
             </button>
           </div>
