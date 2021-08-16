@@ -34,7 +34,9 @@ function getLine(line) {
     if(line.counts){
       html += '<p>';
       for(let [k, v] of Object.entries(line.counts)){
-        html += `${k}: ${v}    `;
+        if(Number(v) > 0){
+          html += `<span class="me-3">${k}: ${v}</span>`;
+        }
       }
       html += '</p>';
     }
