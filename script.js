@@ -15,6 +15,10 @@ let data = [
   }
 ];
 
+document.getElementById('unsizedDone').addEventListener('click', (e) => {
+  
+});
+
 function getLine(line) {
   const l = document.createElement("li");
   l.classList.add("list-group-item");
@@ -39,3 +43,5 @@ function getLine(line) {
   l.innerHTML = html;
   return l;
 }
+
+
