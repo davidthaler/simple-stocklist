@@ -17,6 +17,8 @@ let data = [
 
 document.getElementById('unsizedDone').addEventListener('click', (e) => {
   
+  document.getElementById('unsizedDataEntry').reset();
+  //close modal
 });
 
 function getLine(line) {
