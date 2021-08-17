@@ -109,8 +109,8 @@ function getLine(line) {
       if (Number(v) > 0) {
         html += `<span class="me-3">${k}: ${v}</span>`;
       }
-      html += '<img src="images/trash.svg" class="trash"/></p>';
     }
+    html += '<img src="images/trash.svg" class="trash"/></p>'; 
   }
   if (line.notes) {
     html += `<p class="text-muted">${line.notes}</p>`;
