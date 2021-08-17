@@ -23,7 +23,7 @@ document.getElementById("addSized").addEventListener("click", e => {
     XL: document.getElementById("xl_input").value,
     XXL: document.getElementById("xxl_input").value,
     "3XL": document.getElementById("3xl_input").value,
-    "4XL": document.getElementById("3xl_input").value
+    "4XL": document.getElementById("4xl_input").value
   };
 
   // remove empties
