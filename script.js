@@ -64,7 +64,7 @@ function getLine(line) {
   let html = `<h5>${line.description}</h5>`;
   if (line.type === "unsized") {
     if (line.count) {
-      html += `<p>${line.count}</p>`;
+      html += `<p><span>${line.count}<span><img src="images/trash.svg" class="trash"/></p>`;
     }
   } else if (line.type === "sized") {
     if (line.counts) {
@@ -86,6 +86,12 @@ function getLine(line) {
     const dataLine = getLineById(l.getAttribute('id'));
     dataLine.done = true;
     updateLocalStorage();
+  });
+  l.querySelector('img.trash').addEventListener('click', () => {
+    const removeIndex = stocklist.findIndex(x => (x.id === line.id));
+    stocklist.splice(removeIndex, 1);
+    updateLocalStorage();
+    updateDisplay();
   });
   return l;
 }
