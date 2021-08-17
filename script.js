@@ -1,4 +1,6 @@
-let data = [
+const STORAGE_KEY = 'stocklist_storage_key';
+
+const stocklist = [
   { type: "unsized", description: "Bk W sch", count: 8 },
   {
     type: "unsized",
@@ -29,11 +31,16 @@ document.getElementById("addUnsized").addEventListener("click", e => {
   const lineData = { type: "unsized", description, count, notes };
   const line = getLine(lineData);
   if (line) {
-    data.push(lineData);
+    stocklist.push(lineData);
     output.appendChild(line);
+    updateLocalStorage();
   }
   form.reset();
 });
+
+function updateLocalStorage(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stocklist));  
+}
 
 function getLine(line) {
   const l = document.createElement("li");
