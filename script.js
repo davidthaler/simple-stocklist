@@ -15,13 +15,15 @@ document.getElementById("addSized").addEventListener("click", e => {
   if(!description){
     return;
   }
-  const counts = {};
-  const xsCount = document.getElementById('xs_input').value;
+  const counts = {
+    XS: document.getElementById('xs_input').value
+  };
+  const xsCount = ;
   if(xsCount){
     counts.XS = xsCount;
   }
   const smCount = document.getElementById('small_input').value;
-  if(xsCount){
+  if(smCount){
     counts.S = smCount;
   }
   const medCount = document.getElementById('medium_input').value;
@@ -108,7 +110,7 @@ function getLine(line) {
           html += `<span class="me-3">${k}: ${v}</span>`;
         }
       }
-      html += "</p>";
+      html += '<img src="images/trash.svg" class="trash"/></p>';
     }
   }
   if (line.notes) {
