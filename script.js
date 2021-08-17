@@ -1,12 +1,12 @@
-const STORAGE_KEY = 'stocklist_storage_key';
+const STORAGE_KEY = "stocklist_storage_key";
 let stocklist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 const output = document.getElementById("output");
 stocklist.forEach(line => output.appendChild(getLine(line)));
 
-document.getElementById('clearBtn').addEventListener('click', e => {
+document.getElementById("clearBtn").addEventListener("click", e => {
   stocklist = [];
   updateLocalStorage();
-  output.innerHTML = '';
+  output.innerHTML = "";
 });
 
 document.getElementById("addUnsized").addEventListener("click", e => {
@@ -14,18 +14,25 @@ document.getElementById("addUnsized").addEventListener("click", e => {
   const description = form.querySelector("input[type=text]").value;
   const count = form.querySelector("input[type=number]").value;
   const notes = form.querySelector("textarea").value;
-  const lineData = {id: nextId(), done: false, type: "unsized", description, count, notes };
-  const line = getLine(lineData);
-  if (line) {
+  const lineData = {
+    id: nextId(),
+    done: false,
+    type: "unsized",
+    description,
+    count,
+    notes
+  };
+  const lineDisplay = getLine(lineData);
+  if (lineDisplay) {
     stocklist.push(lineData);
-    output.appendChild(line);
+    output.appendChild(lineDisplay);
     updateLocalStorage();
   }
   form.reset();
 });
 
-function nextId(){
-  const INDEX_KEY = 'index_key';
+function nextId() {
+  const INDEX_KEY = "index_key";
   //NB: Number(null) is 0
   let index = Number(localStorage.getItem(INDEX_KEY));
   index += 1;
@@ -33,27 +40,28 @@ function nextId(){
   return `item_${index}`;
 }
 
-function getLineById(id){
-  return stocklist.filter(x => (x.id && x.id===id))[0] || null;
+function getLineById(id) {
+  return stocklist.filter(x => x.id && x.id === id)[0] || null;
 }
 
-function updateLocalStorage(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(stocklist));  
+function updateLocalStorage() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(stocklist));
 }
 
-function getLine(line, id) {
+function getLine(line) {
   const l = document.createElement("li");
-  if(line.id){
-    l.setAttribute('id', line.id);
+  l.setAttribute("id", line.id);
+  if (line.done) {
+    l.classList.add("done");
   }
   l.classList.add("list-group-item");
-  if (!line || !line.description) return;
+  if (!line.description) return;
   let html = `<h5>${line.description}</h5>`;
-  if (line.type && line.type === "unsized") {
+  if (line.type === "unsized") {
     if (line.count) {
       html += `<p>${line.count}</p>`;
     }
-  } else if (line.type && line.type === "sized") {
+  } else if (line.type === "sized") {
     if (line.counts) {
       html += "<p>";
       for (let [k, v] of Object.entries(line.counts)) {
@@ -68,9 +76,11 @@ function getLine(line, id) {
     html += `<p class="text-muted">${line.notes}</p>`;
   }
   l.innerHTML = html;
-  l.addEventListener('dblclick', (e) => {
-    l.classList.toggle('done');
-    const dataLine = getLine()
+  l.addEventListener("dblclick", e => {
+    l.classList.add("done");
+    const dataLine = getLineById(l.getAttribute('id'));
+    dataLine.done = true;
+    updateLocalStorage();
   });
   return l;
 }
