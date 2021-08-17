@@ -9,6 +9,40 @@ document.getElementById("clearBtn").addEventListener("click", e => {
   updateDisplay()
 });
 
+document.getElementById("addSized").addEventListener("click", e => {
+  const form = document.getElementById('sizedDataEntry');
+  const description = form.querySelector("input[type=text]").value;
+  if(!description){
+    return;
+  }
+  const counts = {};
+  const xsCount = document.getElementById('xs_input').value;
+  if(xsCount){
+    counts.XS = xsCount;
+  }
+  const smCount = document.getElementById('small_input').value;
+  if(xsCount){
+    counts.S = smCount;
+  }
+  const medCount = document.getElementById('medium_input').value;
+  if(medCount){
+    counts.M = medCount;
+  }
+  const notes = form.querySelector("textarea").value;
+  const lineData = {
+    id: nextId(),
+    done: false,
+    type: 'sized',
+    description,
+    counts,
+    notes
+  };
+  stocklist.push(lineData);
+  updateLocalStorage();
+  updateDisplay();
+  form.reset();
+});
+
 document.getElementById("addUnsized").addEventListener("click", e => {
   const form = document.getElementById("unsizedDataEntry");
   const description = form.querySelector("input[type=text]").value;
