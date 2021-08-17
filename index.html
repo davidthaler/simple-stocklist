@@ -12,6 +12,8 @@
     />
     <link rel="stylesheet" href="/style.css" />
     <link rel="icon" href="images/list.svg" />
+    <!-- NB: for dev only     -->
+    <script src="dummy_data.js"></script>
   </head>
   <body>
     <div class="btn-toolbar fixed-top bg-light p-2 w-100" role="toolbar">
@@ -26,7 +28,7 @@
           New Unsized
         </button>
       </div>
-      <button type="button" class="ms-auto btn btn-danger">Clear</button>
+      <button type="button" id="clearBtn" class="ms-auto btn btn-danger">Clear</button>
     </div>
 
     <div class="modal fade" id="unsizedModal" tabindex="-1">

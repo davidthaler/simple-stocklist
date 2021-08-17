@@ -3,6 +3,12 @@ let stocklist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 const output = document.getElementById("output");
 stocklist.forEach(line => output.appendChild(getLine(line)));
 
+document.getElementById('clearBtn').addEventListener('click', e => {
+  stocklist = [];
+  updateLocalStorage();
+  output.innerHTML = '';
+});
+
 document.getElementById("addUnsized").addEventListener("click", e => {
   const form = document.getElementById("unsizedDataEntry");
   const description = form.querySelector("input[type=text]").value;
