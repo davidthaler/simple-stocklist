@@ -14,7 +14,7 @@ document.getElementById("addUnsized").addEventListener("click", e => {
   const description = form.querySelector("input[type=text]").value;
   const count = form.querySelector("input[type=number]").value;
   const notes = form.querySelector("textarea").value;
-  const lineData = {id: nextId(), type: "unsized", description, count, notes };
+  const lineData = {id: nextId(), done: false, type: "unsized", description, count, notes };
   const line = getLine(lineData);
   if (line) {
     stocklist.push(lineData);
@@ -31,6 +31,10 @@ function nextId(){
   index += 1;
   localStorage.setItem(INDEX_KEY, index);
   return `item_${index}`;
+}
+
+function getLineById(id){
+  return stocklist.filter(x => (x.id && x.id===id))[0] || null;
 }
 
 function updateLocalStorage(){
@@ -65,7 +69,8 @@ function getLine(line, id) {
   }
   l.innerHTML = html;
   l.addEventListener('dblclick', (e) => {
-    l.classList.add('done');
+    l.classList.toggle('done');
+    const dataLine = getLine()
   });
   return l;
 }
