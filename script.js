@@ -6,30 +6,30 @@ updateDisplay();
 document.getElementById("clearBtn").addEventListener("click", e => {
   stocklist = [];
   updateLocalStorage();
-  updateDisplay()
+  updateDisplay();
 });
 
 document.getElementById("addSized").addEventListener("click", e => {
-  const form = document.getElementById('sizedDataEntry');
+  const form = document.getElementById("sizedDataEntry");
   const description = form.querySelector("input[type=text]").value;
-  if(!description){
+  if (!description) {
     return;
   }
   const counts = {
-    XS: document.getElementById('xs_input').value,
-    S : document.getElementById('small_input').value,
-    M : document.getElementById('medium_input').value,
-    L : document.getElementById('large_input').value,
-    XL: document.getElementById('xl_input').value,
-    XXL  : document.getElementById('xxl_input').value,
-    '3XL': document.getElementById('3xl_input').value,
-    '4XL': document.getElementById('3xl_input').value
+    XS: document.getElementById("xs_input").value,
+    S: document.getElementById("small_input").value,
+    M: document.getElementById("medium_input").value,
+    L: document.getElementById("large_input").value,
+    XL: document.getElementById("xl_input").value,
+    XXL: document.getElementById("xxl_input").value,
+    "3XL": document.getElementById("3xl_input").value,
+    "4XL": document.getElementById("3xl_input").value
   };
-  
+
   // remove empties
-  for(let [k, v] of Object.entries(counts)){
-    if(v==="" || v==="0"){
-      delete(counts[k]);
+  for (let [k, v] of Object.entries(counts)) {
+    if (v === "" || v === "0") {
+      delete counts[k];
     }
   }
 
@@ -37,7 +37,7 @@ document.getElementById("addSized").addEventListener("click", e => {
   const lineData = {
     id: nextId(),
     done: false,
-    type: 'sized',
+    type: "sized",
     description,
     counts,
     notes
@@ -87,8 +87,8 @@ function updateLocalStorage() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(stocklist));
 }
 
-function updateDisplay(){
-  output.innerHTML = '';
+function updateDisplay() {
+  output.innerHTML = "";
   stocklist.forEach(line => output.appendChild(getLine(line)));
 }
 
@@ -102,16 +102,12 @@ function getLine(line) {
   if (!line.description) return;
   let html = `<h5>${line.description}</h5>`;
   if (line.type === "unsized") {
-    if (line.count) {
-      html += `<p><span>${line.count}<span><img src="images/trash.svg" class="trash"/></p>`;
-    }
+    html += `<p><span>${line.count}<span><img src="images/trash.svg" class="trash"/></p>`;
   } else if (line.type === "sized") {
-    if (line.counts) {
-      html += "<p>";
-      for (let [k, v] of Object.entries(line.counts)) {
-        if (Number(v) > 0) {
-          html += `<span class="me-3">${k}: ${v}</span>`;
-        }
+    html += "<p>";
+    for (let [k, v] of Object.entries(line.counts)) {
+      if (Number(v) > 0) {
+        html += `<span class="me-3">${k}: ${v}</span>`;
       }
       html += '<img src="images/trash.svg" class="trash"/></p>';
     }
@@ -122,12 +118,12 @@ function getLine(line) {
   l.innerHTML = html;
   l.addEventListener("dblclick", e => {
     l.classList.add("done");
-    const dataLine = getLineById(l.getAttribute('id'));
+    const dataLine = getLineById(l.getAttribute("id"));
     dataLine.done = true;
     updateLocalStorage();
   });
-  l.querySelector('img.trash').addEventListener('click', () => {
-    const removeIndex = stocklist.findIndex(x => (x.id === line.id));
+  l.querySelector("img.trash").addEventListener("click", () => {
+    const removeIndex = stocklist.findIndex(x => x.id === line.id);
     stocklist.splice(removeIndex, 1);
     updateLocalStorage();
     updateDisplay();
