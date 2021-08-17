@@ -1,12 +1,12 @@
 const STORAGE_KEY = "stocklist_storage_key";
 let stocklist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 const output = document.getElementById("output");
-stocklist.forEach(line => output.appendChild(getLine(line)));
 
+updateDisplay();
 document.getElementById("clearBtn").addEventListener("click", e => {
   stocklist = [];
   updateLocalStorage();
-  output.innerHTML = "";
+  updateDisplay()
 });
 
 document.getElementById("addUnsized").addEventListener("click", e => {
@@ -44,8 +44,17 @@ function getLineById(id) {
   return stocklist.filter(x => x.id && x.id === id)[0] || null;
 }
 
+function removeLineById(id){
+  const idx = stocklist.findIndex(x => x.id===id);
+}
+
 function updateLocalStorage() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(stocklist));
+}
+
+function updateDisplay(){
+  output.innerHTML = '';
+  stocklist.forEach(line => output.appendChild(getLine(line)));
 }
 
 function getLine(line) {
