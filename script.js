@@ -44,10 +44,6 @@ function getLineById(id) {
   return stocklist.filter(x => x.id && x.id === id)[0] || null;
 }
 
-function removeLineById(id){
-  const idx = stocklist.findIndex(x => x.id===id);
-}
-
 function updateLocalStorage() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(stocklist));
 }
