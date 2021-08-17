@@ -16,7 +16,14 @@
   <body>
     <div class="btn-toolbar fixed-top bg-light p-2 w-100" role="toolbar">
       <div class="button-group" role="group">
-        <button type="button" class="btn btn-success">New Sized</button>
+        <button
+          type="button"
+          class="btn btn-success"
+          data-bs-toggle="modal"
+          data-bs-target="#sizedModal"
+        >
+          New Sized
+        </button>
         <button
           type="button"
           class="btn btn-success"
@@ -26,7 +33,80 @@
           New Unsized
         </button>
       </div>
-      <button type="button" id="clearBtn" class="ms-auto btn btn-danger">Clear</button>
+      <button type="button" id="clearBtn" class="ms-auto btn btn-danger">
+        Clear
+      </button>
+    </div>
+
+    <div class="modal fade" id="sizedModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn btn-primary" id="addSized">
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="sizedDataEntry">
+              <div class="row">
+                <label for="descriptionInput" class="col-4 col-form-label"
+                  >Description:
+                </label>
+                <div class="col-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="description"
+                    id="descriptionInput"
+                    autocomplete="off"
+                  />
+                </div>
+              </div>
+
+              <!-- Sized Counts section               -->
+              <div class="row">
+                <label for="small_input" class="col-form-label col-1">
+                  S:
+                </label>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="small_count" />
+                </div>
+                <label for="medium_input" class="col-form-label col-1">
+                  M:
+                </label>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="medium_count" />
+                </div>
+                <label for="small_input" class="col-form-label col-1">
+                  S:
+                </label>
+                <div class="col-2">
+                  <input type="number" class="form-control" id="small_count" />
+                </div>
+              </div>
+
+              <div class="row">
+                <label for="notesInput" class="col-form-label col-4"
+                  >Notes:
+                </label>
+                <div class="col-8">
+                  <textarea
+                    class="form-control"
+                    name="notes"
+                    id="notesInput"
+                    rows="2"
+                  ></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="modal fade" id="unsizedModal" tabindex="-1">
@@ -94,8 +174,7 @@
     </div>
 
     <main>
-      <ul class="list-group list-group-flush" id="output">
-      </ul>
+      <ul class="list-group list-group-flush" id="output"></ul>
     </main>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
