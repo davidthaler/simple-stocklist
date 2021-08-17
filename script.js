@@ -16,20 +16,23 @@ document.getElementById("addSized").addEventListener("click", e => {
     return;
   }
   const counts = {
-    XS: document.getElementById('xs_input').value
+    XS: document.getElementById('xs_input').value,
+    S : document.getElementById('small_input').value,
+    M : document.getElementById('medium_input').value,
+    L : document.getElementById('large_input').value,
+    XL: document.getElementById('xl_input').value,
+    XXL  : document.getElementById('xxl_input').value,
+    '3XL': document.getElementById('3xl_input').value,
+    '4XL': document.getElementById('3xl_input').value
   };
-  const xsCount = ;
-  if(xsCount){
-    counts.XS = xsCount;
+  
+  // remove empties
+  for(let [k, v] of Object.entries(counts)){
+    if(v==="" || v==="0"){
+      delete(counts[k]);
+    }
   }
-  const smCount = document.getElementById('small_input').value;
-  if(smCount){
-    counts.S = smCount;
-  }
-  const medCount = document.getElementById('medium_input').value;
-  if(medCount){
-    counts.M = medCount;
-  }
+
   const notes = form.querySelector("textarea").value;
   const lineData = {
     id: nextId(),
