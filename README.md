@@ -32,6 +32,6 @@ Later, we will add a photo to line items using a file input tag with `accept="im
 
 TO-DO items
 
-1. delete item; requires item id, markup and a handler
-2. item done; markup, handler state variable; requires id if only one handler
+1. item done; markup, handler state variable; requires id if only one handler
+2. delete item; requires item id, markup and a handler
 3. edit item; markup, handler loads line in to modal

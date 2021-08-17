@@ -30,9 +30,8 @@ function updateLocalStorage(){
 
 function getLine(line, id) {
   const l = document.createElement("li");
-  if(id){
-    l.setAttribute('id', id);
-    console.log(id);
+  if(line.id){
+    l.setAttribute('id', line.id);
   }
   l.classList.add("list-group-item");
   if (!line || !line.description) return;
