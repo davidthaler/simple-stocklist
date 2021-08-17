@@ -28,8 +28,12 @@ function updateLocalStorage(){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(stocklist));  
 }
 
-function getLine(line) {
+function getLine(line, id) {
   const l = document.createElement("li");
+  if(id){
+    l.setAttribute('id', id);
+    console.log(id);
+  }
   l.classList.add("list-group-item");
   if (!line || !line.description) return;
   let html = `<h5>${line.description}</h5>`;
