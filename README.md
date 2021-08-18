@@ -12,7 +12,10 @@ TO-DO items
 2. __DONE__delete item; requires item id, markup and a handler
 3. __DROP__~~edit item; markup, handler loads line in to modal~~
 4. FIX: sized counts input layout is too cramped for numbers to be visible
-5. ADD: photos
+5. 
+6.
+7. ADD: photos. This is a big one because the photos have to be (1) resized and (2) stored,
+and localStorage will not work for this; we need indexed DB
 
 ## Design
 
