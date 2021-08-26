@@ -1,15 +1,28 @@
 const STORAGE_KEY = "stocklist_storage_key";
-let stocklist = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 const output = document.getElementById("output");
+let stocklist;
 
-updateDisplay();
-document.getElementById("clearBtn").addEventListener("click", e => {
+// TODO: add catch
+// Q: does this work? A bunch of stuff accesses a stocklist global.
+// None of that stuff is then-ed/await-ed on this, so its getting undefined.
+// This does not seem like it should work.
+idbKeyval.get(STORAGE_KEY).then(data => {
+    stocklist = data || [];
+    console.log('loaded data');
+    updateDisplay();
+})
+
+// updateStorage is async, we'll have to await it, so this has to be async
+// or we could have updateStorage.then(() => updateDisplay())
+document.getElementById("clearBtn").addEventListener("click", async (e) => {
   stocklist = [];
-  updateLocalStorage();
+  // Q: do we need to await here?
+  await updateStorage();
   updateDisplay();
 });
 
-document.getElementById("addSized").addEventListener("click", e => {
+// The click handler has to be async for nextId and updateStorage
+document.getElementById("addSized").addEventListener("click", async (e) => {
   const form = document.getElementById("sizedDataEntry");
   const description = form.querySelector("input[type=text]").value;
   if (!description) {
@@ -35,7 +48,7 @@ document.getElementById("addSized").addEventListener("click", e => {
 
   const notes = form.querySelector("textarea").value;
   const lineData = {
-    id: nextId(),
+    id: await nextIndex(),
     done: false,
     type: "sized",
     description,
@@ -43,18 +56,21 @@ document.getElementById("addSized").addEventListener("click", e => {
     notes
   };
   stocklist.push(lineData);
-  updateLocalStorage();
+  // Q: do we need to await here?
+  await updateStorage();
   updateDisplay();
   form.reset();
 });
 
-document.getElementById("addUnsized").addEventListener("click", e => {
+// The click handler has to be async for nextId and updateStorage
+document.getElementById("addUnsized").addEventListener("click", async (e) => {
   const form = document.getElementById("unsizedDataEntry");
   const description = form.querySelector("input[type=text]").value;
+  if(!description) return;
   const count = form.querySelector("input[type=number]").value;
   const notes = form.querySelector("textarea").value;
   const lineData = {
-    id: nextId(),
+    id: await nextIndex(),
     done: false,
     type: "unsized",
     description,
@@ -62,29 +78,24 @@ document.getElementById("addUnsized").addEventListener("click", e => {
     notes
   };
   const lineDisplay = getLine(lineData);
-  if (lineDisplay) {
-    stocklist.push(lineData);
-    output.appendChild(lineDisplay);
-    updateLocalStorage();
-  }
+  stocklist.push(lineData);
+  output.appendChild(lineDisplay);
+  // Q: do we need to await here?
+  await updateStorage();
   form.reset();
 });
 
-function nextId() {
-  const INDEX_KEY = "index_key";
-  //NB: Number(null) is 0
-  let index = Number(localStorage.getItem(INDEX_KEY));
-  index += 1;
-  localStorage.setItem(INDEX_KEY, index);
-  return `item_${index}`;
+async function nextIndex(){
+    await idbKeyval.update('index', (idx) => (idx || 0) + 1);
+    return idbKeyval.get('index');
 }
 
 function getLineById(id) {
-  return stocklist.filter(x => x.id && x.id === id)[0] || null;
+  return stocklist.filter(x => x.id && x.id === Number(id))[0] || null;
 }
 
-function updateLocalStorage() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(stocklist));
+function updateStorage(){
+    return idbKeyval.set(STORAGE_KEY, stocklist);
 }
 
 function updateDisplay() {
@@ -92,6 +103,7 @@ function updateDisplay() {
   stocklist.forEach(line => output.appendChild(getLine(line)));
 }
 
+// Handlers for done(dblclick) and delete have to be async, but I think that's it
 function getLine(line) {
   const l = document.createElement("li");
   l.setAttribute("id", line.id);
@@ -120,12 +132,12 @@ function getLine(line) {
     l.classList.add("done");
     const dataLine = getLineById(l.getAttribute("id"));
     dataLine.done = true;
-    updateLocalStorage();
+    updateStorage();
   });
   l.querySelector("img.trash").addEventListener("click", () => {
     const removeIndex = stocklist.findIndex(x => x.id === line.id);
     stocklist.splice(removeIndex, 1);
-    updateLocalStorage();
+    updateStorage();
     updateDisplay();
   });
   return l;
