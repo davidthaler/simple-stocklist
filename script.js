@@ -74,6 +74,16 @@ document.getElementById("addUnsized").addEventListener("click", async (e) => {
   form.reset();
 });
 
+document.getElementById('doneUnsized').addEventListener('click', () => {
+  document.getElementById('addUnsized').click();
+  document.getElementById('closeUnsized').click();
+});
+
+document.getElementById('doneSized').addEventListener('click', () => {
+  document.getElementById('addSized').click();
+  document.getElementById('closeSized').click();
+});
+
 async function nextIndex(){
     await idbKeyval.update('index', (idx) => (idx || 0) + 1);
     return idbKeyval.get('index');

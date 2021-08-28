@@ -12,7 +12,7 @@ TO-DO items
 2. __DONE__ delete item; requires item id, markup and a handler
 3. __DROP__ ~~edit item; markup, handler loads line in to modal~~
 4. __DONE__ sized counts input layout is too cramped for numbers to be visible
-5. get a Done button that is add + close
+5. __DONE__ get a Done button that is add + close
 6. form validation: When Add fails due to a missing name, it is unclear what happened.
 7. ADD: photos. This is a big one because the photos have to be (1) resized and (2) stored, and localStorage will not work for this; we need indexed DB
 
