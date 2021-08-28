@@ -2,7 +2,7 @@
 
 This is a simple client-side app for taking restocking lists. 
 There will be one list at a time in the app. There is no server.
-The list will persist in local storage.
+The list will persist in ~~local storage~~indexed DB.
 
 ## In-Progress
 
@@ -11,11 +11,10 @@ TO-DO items
 1. __DONE__item done; markup, handler state variable; requires id if only one handler
 2. __DONE__delete item; requires item id, markup and a handler
 3. __DROP__~~edit item; markup, handler loads line in to modal~~
-4. FIX: sized counts input layout is too cramped for numbers to be visible
+4. __DONE__ sized counts input layout is too cramped for numbers to be visible
 5. get a Done button that is add + close
 6. form validation: When Add fails due to a missing name, it is unclear what happened.
-7. ADD: photos. This is a big one because the photos have to be (1) resized and (2) stored,
-and localStorage will not work for this; we need indexed DB
+7. ADD: photos. This is a big one because the photos have to be (1) resized and (2) stored, and localStorage will not work for this; we need indexed DB
 
 ## Design
 
