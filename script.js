@@ -2,26 +2,18 @@ const STORAGE_KEY = "stocklist_storage_key";
 const output = document.getElementById("output");
 let stocklist;
 
-// TODO: add catch
-// Q: does this work? A bunch of stuff accesses a stocklist global.
-// None of that stuff is then-ed/await-ed on this, so its getting undefined.
-// This does not seem like it should work.
 idbKeyval.get(STORAGE_KEY).then(data => {
     stocklist = data || [];
     console.log('loaded data');
     updateDisplay();
 })
 
-// updateStorage is async, we'll have to await it, so this has to be async
-// or we could have updateStorage.then(() => updateDisplay())
 document.getElementById("clearBtn").addEventListener("click", async (e) => {
   stocklist = [];
-  // Q: do we need to await here?
   await updateStorage();
   updateDisplay();
 });
 
-// The click handler has to be async for nextId and updateStorage
 document.getElementById("addSized").addEventListener("click", async (e) => {
   const form = document.getElementById("sizedDataEntry");
   const description = form.querySelector("input[type=text]").value;
@@ -56,13 +48,11 @@ document.getElementById("addSized").addEventListener("click", async (e) => {
     notes
   };
   stocklist.push(lineData);
-  // Q: do we need to await here?
   await updateStorage();
   updateDisplay();
   form.reset();
 });
 
-// The click handler has to be async for nextId and updateStorage
 document.getElementById("addUnsized").addEventListener("click", async (e) => {
   const form = document.getElementById("unsizedDataEntry");
   const description = form.querySelector("input[type=text]").value;
@@ -80,7 +70,6 @@ document.getElementById("addUnsized").addEventListener("click", async (e) => {
   const lineDisplay = getLine(lineData);
   stocklist.push(lineData);
   output.appendChild(lineDisplay);
-  // Q: do we need to await here?
   await updateStorage();
   form.reset();
 });
@@ -103,7 +92,6 @@ function updateDisplay() {
   stocklist.forEach(line => output.appendChild(getLine(line)));
 }
 
-// Handlers for done(dblclick) and delete have to be async, but I think that's it
 function getLine(line) {
   const l = document.createElement("li");
   l.setAttribute("id", line.id);
