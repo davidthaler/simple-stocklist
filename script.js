@@ -53,19 +53,20 @@ document.getElementById("addSized").addEventListener("click", async (e) => {
   form.reset();
 });
 
-document.getElementById("addUnsized").addEventListener("click", async (e) => {
-  const form = document.getElementById("unsizedDataEntry");
-  const description = form.querySelector("input[type=text]").value;
-  if(!description) return;
-  const count = form.querySelector("input[type=number]").value;
-  const notes = form.querySelector("textarea").value;
-  const lineData = {
-    id: await nextIndex(),
-    done: false,
-    type: "unsized",
-    description,
-    count,
-    notes
+document.getElementById("addUnsized").addEventListener("click", 
+  async (e) => {
+    const form = document.getElementById("unsizedDataEntry");
+    const description = form.querySelector("input[type=text]").value;
+    if(!description) return;
+    const count = form.querySelector("input[type=number]").value;
+    const notes = form.querySelector("textarea").value;
+    const lineData = {
+      id: await nextIndex(),
+      done: false,
+      type: "unsized",
+      description,
+      count,
+      notes
   };
   const lineDisplay = getLine(lineData);
   stocklist.push(lineData);
@@ -112,7 +113,7 @@ function getLine(line) {
   if (!line.description) return;
   let html = `<h5>${line.description}</h5>`;
   if (line.type === "unsized") {
-    html += `<p><span>${line.count}<span><img src="images/trash.svg" class="trash"/></p>`;
+    html += `<p><span>${line.count}<span>`;
   } else if (line.type === "sized") {
     html += "<p>";
     for (let [k, v] of Object.entries(line.counts)) {
@@ -120,8 +121,8 @@ function getLine(line) {
         html += `<span class="me-3">${k}: ${v}</span>`;
       }
     }
-    html += '<img src="images/trash.svg" class="trash"/></p>'; 
   }
+  html += '<img src="images/trash.svg" class="trash"/></p>';
   if (line.notes) {
     html += `<p class="text-muted">${line.notes}</p>`;
   }
